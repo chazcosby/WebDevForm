@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Development Project Inquiry</title>
+<style>
+  /* Hides form sections by default and shows the active section */
+  .form-section { display: none; }
+  .form-section.active { display: block; }
+  /* Styles for the button, including margin */
+  button { margin-top: 20px; }
+  /* General styling for the form */
+  form {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  /* Label styling, including margin and color */
+  label {
+    display: block;
+    margin: 10px 0;
+    color: #333;
+  }
+  /* Highlights required fields */
+  .required { color: red; }
+  /* Styles inputs, selects, and textareas */
+  input[type=text], input[type=email], input[type=tel], input[type=url], input[type=date], select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  /* Container for radio buttons, including flex display for alignment */
+  .radio-container {
+    display: flex;
+    align-items: center;
+  }
+  /* Hides default radio button style */
+  .radio-container input[type="radio"] { display: none; }
+  /* Styles for custom radio buttons */
+  .radio-container label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    margin-right: 20px;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  /* Before pseudo-element for custom radio buttons */
+  .radio-container label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #4267B2;
+    border-radius: 50%;
+    background-color: #fff;
+  }
+  /* Changes background color when radio button is checked */
+  .radio-container input[type="radio"]:checked + label:before { background-color: #4267B2; }
+  /* Styles for the submit button, including hover and disabled states */
+  button {
+    background-color: #4267B2;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover { background-color: #365899; }
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+</style>
+</head>
+<body>
+
+<form id="inquiryForm">
+  <!-- Form Section 1: Contact Information -->
+  <div class="form-section active" id="section-1">
+    <label for="email">Email:<span class="required">*</span></label>
+    <input type="email" id="email" name="email" required>
+    <label for="phone">Phone Number:</label>
+    <input type="tel" id="phone" name="phone">
+    <label for="fullname">Full Name:<span class="required">*</span></label>
+    <input type="text" id="fullname" name="fullname" required>
+    <label for="company">Company:</label>
+    <input type="text" id="company" name="company">
+    <button type="button" onclick="showNextSection(1)">Next</button>
+  </div>
+  
+  <!-- Form Section 2: Project Details -->
+  <div class="form-section" id="section-2">
+    <label for="website">Current Website URL (If Applicable):</label>
+    <input type="url" id="website" name="website">
+    <label for="service">Service Requested:<span class="required">*</span></label>
+    <select id="service" name="service" required>
+      <option value="">Please Select</option>
+      <option value="Website Design">Website Design</option>
+      <option value="Website Redesign">Website Redesign</option>
+      <option value="E-Commerce Development">E-Commerce Development</option>
+      <option value="Content Management">Content Management</option>
+      <option value="Other">Other</option>
+    </select>
+    <label for="project-overview">Please Provide a Brief Overview of Your Project:<span class="required">*</span></label>
+    <textarea id="project-overview" name="project-overview" rows="4" required></textarea>
+    <button type="button" onclick="showPreviousSection(2)">Back</button>
+    <button type="button" onclick="showNextSection(2)">Next</button>
+  </div>
+  
+  <!-- Form Section 3: Additional Information -->
+  <div class="form-section" id="section-3">
+    <label>Do you have a logo for your brand or project?<span class="required">*</span></label>
+    <div class="radio-container">
+      <input type="radio" id="logo-yes" name="logo" value="Yes" required>
+      <label for="logo-yes">Yes</label>
+      <input type="radio" id="logo-no" name="logo" value="No" required>
+      <label for="logo-no">No</label>
+    </div>
+    <label>Do you have specific images you wish to use on your website?<span class="required">*</span></label>
+    <div class="radio-container">
+      <input type="radio" id="images-yes" name="images" value="Yes" required>
+      <label for="images-yes">Yes</label>
+      <input type="radio" id="images-no" name="images" value="No" required>
+      <label for="images-no">No</label>
+    </div>
+    <label>Do you already have text content prepared for your website?<span class="required">*</span></label>
+    <div class="radio-container">
+      <input type="radio" id="content-yes" name="content" value="Yes" required>
+      <label for="content-yes">Yes</label>
+      <input type="radio" id="content-no" name="content" value="No" required>
+      <label for="content-no">No</label>
+    </div>
+    <label for="deadline">Project Deadline:</label>
+    <input type="date" id="deadline" name="deadline">
+    <label for="budget">Estimated Budget:<span class="required">*</span></label>
+    <select id="budget" name="budget" required>
+      <option value="">Please Select</option>
+      <option value="< $1000">< $1000</option>
+      <option value="$1000 - $3000">$1000 - $3000</option>
+      <option value="$3000 - $5000">$3000 - $5000</option>
+      <option value="$5000 - $10000">$5000 - $10000</option>
+      <option value="> $10000">> $10000</option>
+    </select>
+    <label for="discovery">How did you hear about us?<span class="required">*</span></label>
+    <select id="discovery" name="discovery" required>
+      <option value="">Please Select</option>
+      <option value="Online Search">Online Search</option>
+      <option value="Social Media">Social Media</option>
+      <option value="Referral">Referral</option>
+      <option value="Advertisement">Advertisement</option>
+      <option value="Other">Other</option>
+    </select>
+    <button type="button" onclick="showPreviousSection(3)">Back</button>
+    <button type="button" onclick="submitForm()">Submit</button>
+  </div>
+
+  <!-- Form Section 4: Submission Success Message -->
+  <div class="form-section" id="section-4">
+    <h2>🚀 Success!</h2>
+    <p>Your digital masterpiece has been securely transmitted to our team of web wizards. </p>
+    <p>🧙‍♂️✨ Rest easy, we're now brewing up some magic to get back to you at warp speed! </p>
+    <p>Keep an eye on your inbox, a surprise might just pop in sooner than you think! 📬💫</p>
+  </div>
+</form>
+
+<script>
+// Functions to navigate between form sections
+function showNextSection(currentSection) {
+  var current = document.getElementById('section-' + currentSection);
+  var next = document.getElementById('section-' + (currentSection + 1));
+  if (current) current.classList.remove('active');
+  if (next) next.classList.add('active');
+  validateFormSection(next.id);
+}
+
+function showPreviousSection(currentSection) {
+  var current = document.getElementById('section-' + currentSection);
+  var previous = document.getElementById('section-' + (currentSection - 1));
+  if (current) current.classList.remove('active');
+  if (previous) previous.classList.add('active');
+  validateFormSection(previous.id);
+}
+
+// Validates the current form section before moving to the next
+function validateFormSection(sectionId) {
+  var section = document.getElementById(sectionId);
+  var inputs = section.querySelectorAll('input[required], select[required], textarea[required]');
+  var isValid = Array.from(inputs).every(input => {
+    if (input.type === 'radio') {
+      var name = input.name;
+      return Array.from(document.querySelectorAll('input[name="' + name + '"]')).some(radio => radio.checked);
+    }
+    return input.value.trim() !== '';
+  });
+  var nextButton = section.querySelector('button[type="button"]:not([onclick*="showPreviousSection"])');
+  if (nextButton) nextButton.disabled = !isValid;
+}
+
+// Submits the form data
+function submitForm() {
+  var form = document.getElementById('inquiryForm');
+  var formData = new FormData(form);
+  fetch("https://formspree.io/f/mknypvja", {
+    method: "POST",
+    body: formData,
+    headers: {"Accept": "application/json"}
+  })
+  .then(response => {
+    if (response.ok) {
+      form.classList.remove('active');
+      var thankYouSection = document.getElementById('section-4');
+      thankYouSection.classList.add('active');
+      var formElements = form.querySelectorAll('input, select, textarea, button');
+      formElements.forEach(element => element.disabled = true);
+    } else throw new Error("Network response was not ok.");
+  })
+  .catch(error => console.error("Error:", error));
+}
+
+// Initial validation and event listeners for form fields
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.form-section').forEach(section => {
+    section.addEventListener('change', () => validateFormSection(section.id));
+    section.addEventListener('keyup', () => validateFormSection(section.id));
+  });
+  validateFormSection('section-1');
+});
+</script>
+
+</body>
+</html>
